@@ -1,0 +1,4 @@
+/**
+* @mainpage libhitomezashi
+* Library to draw hitomezashi patterns. See README.md in [the source repository](https://github.com/untir-l/hitomezashi) for more information.
+*/

@@ -12,17 +12,21 @@ Licensed under GPLv2 (see `LICENSE` file for full text). This project's source c
 
 ## Usage
 
-`hitomezashi.c` and `hitomezashi.h` are the library portion; running `make` will build `libhitomezashi.a` from these. See `hitomezashi_cli.c` for an example of how to use it (all relevant code is in `main()`; most of the rest of the file is cumbersome argument parsing).
+### libhitomezashi
 
-`hitomezashi_cli.c` and corresponding header file are the CLI app. `make` will build it; run `./hitomezashi_cli -h` for help.
+This is in the `lib/` directory. For example usage, see the Hitomezashi CLI source (all the relevant code is in `main()`; most everything outside that is cumbersome argument parsing).
 
-Output of the CLI app is a BMP image; you can convert it to something nicer like a PNG with FFmpeg or similar.
+Running `make` in the project root will build this as `libhitomezashi.a`.
+
+### Hitomezashi CLI
+
+This is in the `cli/` directory. It is built by default when `make` is invoked in the project root. Run `./hitomezashi_cli -h` for usage info.
+
+The output of the CLI app is a BMP image; you can convert it to something nicer like a PNG with FFmpeg or similar.
 
 Additionally, the output is black and white - you can replace these colours using your tool of choice if desired.
 
 ## Todos/potential future additions
 - Make a web app version
-- Add documentation using Doxygen to both the library and CLI app
-- Implement nicer argument parsing (I hear there are some nice Rust libraries for this; maybe rewrite the CLI app in that?)
 - Add support for output to PNG/other formats to the CLI app
 - Add support for choosing foreground and background colours

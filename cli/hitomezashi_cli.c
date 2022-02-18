@@ -1,3 +1,5 @@
+/** @file */
+
 #include "hitomezashi_cli.h"
 #include "SDL.h"
 #define OPTPARSE_IMPLEMENTATION
@@ -10,6 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/** Initialise SDL, pass the information from hitomezashi_cli_handle_args() to
+ * libhitomezashi, and save the resulting image. */
 int main(int argc, char **argv) {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Failed to initialise SDL: %s",
