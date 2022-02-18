@@ -6,9 +6,9 @@ Library and CLI app to generate hitomezashi patterns like the following:
 
 Inspired by [Numberphile's video](https://www.youtube.com/watch?v=JbfhzlMk2eY) on hitomezashi stitch patterns.
 
-Written in C11 with SDL2. Licensed under GPLv2 (see `LICENSE` file for full text).
+Written in C11 with SDL2. Code style: whatever clang-format outputs.
 
-This project's source code is copyright © 2022-present Arjun Satarkar and potentially other future contributors.
+Licensed under GPLv2 (see `LICENSE` file for full text). This project's source code is copyright © 2022-present Arjun Satarkar and potentially other future contributors.
 
 ## Usage
 
@@ -16,7 +16,7 @@ This project's source code is copyright © 2022-present Arjun Satarkar and poten
 
 `hitomezashi_cli.c` and corresponding header file are the CLI app. `make` will build it; run `./hitomezashi_cli -h` for help.
 
-Output of the CLI app is a BMP image; you can convert it to something nicer like a PNG with ffmpeg or similar.
+Output of the CLI app is a BMP image; you can convert it to something nicer like a PNG with FFmpeg or similar.
 
 Additionally, the output is black and white - you can replace these colours using your tool of choice if desired.
 
