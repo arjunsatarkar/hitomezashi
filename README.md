@@ -2,7 +2,7 @@
 
 Library and CLI app to generate hitomezashi patterns like the following:
 
-*pending addition of image*
+<img src="https://raw.githubusercontent.com/untir-l/hitomezashi/main/sample.png" alt="sample hitomezashi pattern" width="500" height="500">
 
 Inspired by [Numberphile's video](https://www.youtube.com/watch?v=JbfhzlMk2eY) on hitomezashi stitch patterns.
 
