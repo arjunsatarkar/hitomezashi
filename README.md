@@ -21,6 +21,7 @@ Output of the CLI app is a BMP image; you can convert it to something nicer like
 Additionally, the output is black and white - you can replace these colours using your tool of choice if desired.
 
 ## Todos/potential future additions
+- Make a web app version
 - Add documentation using Doxygen to both the library and CLI app
 - Implement nicer argument parsing (I hear there are some nice Rust libraries for this; maybe rewrite the CLI app in that?)
 - Add support for output to PNG/other formats to the CLI app
