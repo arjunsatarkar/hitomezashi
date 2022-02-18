@@ -17,5 +17,8 @@ hitomezashi_cli: hitomezashi_cli.o libhitomezashi.a
 
 hitomezashi_cli.o: hitomezashi_cli.c hitomezashi_cli.h
 
+format-code:
+	clang-format -i *.c *.h
+
 clean:
 	rm -f *.a *.o hitomezashi_cli
