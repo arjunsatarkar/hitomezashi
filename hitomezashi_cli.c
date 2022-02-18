@@ -1,7 +1,9 @@
 #include "hitomezashi_cli.h"
 #include "SDL.h"
-#include "getopt/xgetopt.h"
+#define OPTPARSE_IMPLEMENTATION
+#define OPTPARSE_API static
 #include "hitomezashi.h"
+#include "optparse/optparse.h"
 #include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -74,7 +76,6 @@ char *hitomezashi_cli_ascii_binary_str_to_ints(char *ascii_str, size_t n) {
       break;
     default:;
       free(res);
-      printf("%d\n", ascii_str[i]);
       return NULL;
     }
   }
@@ -93,24 +94,25 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
   bool gap_specified = false;
   bool thickness_specified = false;
 
-  struct xgetopt xgetopt_state = XGETOPT_INIT;
+  struct optparse options;
+  optparse_init(&options, argv);
   int option;
-  while ((option = xgetopt(&xgetopt_state, argc, argv, "o:x:y:g:t:h") != -1)) {
-    switch (xgetopt_state.optopt) {
+  while ((option = optparse(&options, ":o:x:y:g:t:h")) != -1) {
+    switch (option) {
     case 'o':;
-      *out_file_path = xgetopt_state.optarg;
+      *out_file_path = options.optarg;
       out_file_path_specified = true;
       break;
     case 'x':;
-      size_t x_pattern_len_l = strlen(xgetopt_state.optarg);
+      size_t x_pattern_len_l = strlen(options.optarg);
       if (x_pattern_len_l >= INT_MAX) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
                         "X pattern length must be shorter than %d", INT_MAX);
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *x_pattern_len = x_pattern_len_l;
-      *x_pattern = hitomezashi_cli_ascii_binary_str_to_ints(
-          xgetopt_state.optarg, *x_pattern_len);
+      *x_pattern = hitomezashi_cli_ascii_binary_str_to_ints(options.optarg,
+                                                            *x_pattern_len);
       if (!*x_pattern) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Invalid x pattern; see -h");
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
@@ -118,15 +120,15 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
       x_pattern_specified = true;
       break;
     case 'y':;
-      size_t y_pattern_len_l = strlen(xgetopt_state.optarg);
+      size_t y_pattern_len_l = strlen(options.optarg);
       if (y_pattern_len_l >= INT_MAX) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
                         "Y pattern length must be shorter than %d", INT_MAX);
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *y_pattern_len = y_pattern_len_l;
-      *y_pattern = hitomezashi_cli_ascii_binary_str_to_ints(
-          xgetopt_state.optarg, *y_pattern_len);
+      *y_pattern = hitomezashi_cli_ascii_binary_str_to_ints(options.optarg,
+                                                            *y_pattern_len);
       if (!*y_pattern) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Invalid y pattern; see -h");
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
@@ -134,21 +136,23 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
       y_pattern_specified = true;
       break;
     case 'g':;
-      long gap_l = strtol(xgetopt_state.optarg, NULL, 0);
-      if (gap_l >= INT_MAX) {
+      long gap_l = strtol(options.optarg, NULL, 0);
+      if (gap_l <= 0 || gap_l >= INT_MAX) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
-                        "Value for gap must be less than %d", INT_MAX);
+                        "Value for gap must be positive and less than %d",
+                        INT_MAX);
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *gap = gap_l;
       gap_specified = true;
       break;
     case 't':;
-      long thickness_l = strtol(xgetopt_state.optarg, NULL, 0);
-      if (thickness_l >= INT_MAX) {
-        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
-                        "Value for line thickness must be less than %d",
-                        INT_MAX);
+      long thickness_l = strtol(options.optarg, NULL, 0);
+      if (thickness_l <= 0 || thickness_l >= INT_MAX) {
+        SDL_LogCritical(
+            SDL_LOG_CATEGORY_ERROR,
+            "Value for line thickness must be positive and less than %d",
+            INT_MAX);
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *thickness = thickness_l;
