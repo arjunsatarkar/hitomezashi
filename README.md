@@ -8,7 +8,7 @@ Inspired by [Numberphile's video](https://www.youtube.com/watch?v=JbfhzlMk2eY) o
 
 Written in C11 with SDL2. Code style: whatever clang-format outputs.
 
-Licensed under GPLv2 (see `LICENSE` file for full text). This project's source code is copyright © 2022-present Arjun Satarkar and potentially other future contributors.
+Licensed under GPLv2 (see `LICENSE` file for full text). This project's source code is copyright © 2022-present Arjun Satarkar, except code contributed by others who retain their copyright.
 
 ## Usage
 
