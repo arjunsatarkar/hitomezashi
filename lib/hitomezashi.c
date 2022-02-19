@@ -71,6 +71,7 @@ enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state) {
     }
   }
   // Join up the lines to avoid leaving holes at the intersections
+  // To understand how this works, try commenting it out and see the output
   for (int x = state->gap; x < state->output_width; x += state->gap) {
     for (int y = state->gap; y < state->output_height; y += state->gap) {
       rect.x = x;

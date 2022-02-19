@@ -15,12 +15,6 @@
 /** Initialise SDL, pass the information from hitomezashi_cli_handle_args() to
  * libhitomezashi, and save the resulting image. */
 int main(int argc, char **argv) {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Failed to initialise SDL: %s",
-                    SDL_GetError());
-    return Hitomezashi_Cli_Exit_Code_Err_Sdl_Init;
-  }
-
   char *out_file_path;
   int x_pattern_len;
   int y_pattern_len;
@@ -31,6 +25,12 @@ int main(int argc, char **argv) {
   hitomezashi_cli_handle_args(&out_file_path, &x_pattern_len, &y_pattern_len,
                               &x_pattern, &y_pattern, &gap, &thickness, argc,
                               argv);
+
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Failed to initialise SDL: %s",
+                    SDL_GetError());
+    return Hitomezashi_Cli_Exit_Code_Err_Sdl_Init;
+  }
 
   struct Hitomezashi_State state;
   if (hitomezashi_state_init(&state, x_pattern_len, y_pattern_len, x_pattern,
@@ -52,7 +52,6 @@ int main(int argc, char **argv) {
   SDL_Quit();
 }
 
-// Attempts to prints help. Exits 0 on success, 2 on failure.
 void hitomezashi_cli_help(void) {
   if (puts("hitomezashi_cli - generate hitomezashi patterns\n"
            "Options:\n"
@@ -86,8 +85,6 @@ char *hitomezashi_cli_ascii_binary_str_to_ints(char *ascii_str, size_t n) {
   return res;
 }
 
-// Parses arguments with xgetopt, ensures they are valid, initialises various
-// variables based on them. Prints and exits if it encounters an error.
 void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
                                  int *y_pattern_len, char **x_pattern,
                                  char **y_pattern, int *gap, int *thickness,
