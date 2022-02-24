@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--This is code modified from https://github.com/emscripten-core/emscripten/blob/main/src/shell_minimal.html.-->
+    <title>Hitomezashi</title>
+    <style>
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      div.emscripten { text-align: center; }
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px none; background-color: black; }
+      form {
+        display: table;
+        margin: auto;
+      }
+      form p {
+        display: table-row;
+      }
+      form label {
+        display: table-cell;
+      }
+      form input {
+        display: table-cell;
+      }
+      p#infoLink {
+        text-align: center;
+      }
+      p#infoLink a {
+        margin-left: 1ex;
+        margin-right: 1ex;
+      }
+    </style>
+  </head>
+  <body>
+	<p id="infoLink">See <a href="https://github.com/untir-l/hitomezashi/blob/main/README.md">the README</a> for information.</p>
+        <form name="hitomezashi parameters" autocomplete="off" method="get">
+                <p><label>x pattern: <input name="x_pattern"></label></p>
+                <p><label>y pattern: <input name="y_pattern"></label></p>
+                <p><label>gap: <input name="gap" type="number"></label></p>
+                <p><label>line thickness: <input name="line_thickness" type="number"></label></p>
+                <input type="submit" value="submit"></p>
+        </form>
+        <br>
+        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <script type='text/javascript'>
+      var Module = {
+        preRun: [],
+        postRun: [],
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })(),
+      };
+      const params = new URLSearchParams(window.location.search);
+      document.querySelector("input[name=\"x_pattern\"]").value = params.get("x_pattern");
+      document.querySelector("input[name=\"y_pattern\"]").value = params.get("y_pattern");
+      document.querySelector("input[name=\"gap\"]").value = params.get("gap");
+      document.querySelector("input[name=\"line_thickness\"]").value = params.get("line_thickness");
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>

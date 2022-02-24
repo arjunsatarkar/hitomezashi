@@ -1,16 +1,19 @@
 /** @file */
 
 #include "hitomezashi_cli.h"
+
 #include "SDL.h"
 #define OPTPARSE_IMPLEMENTATION
 #define OPTPARSE_API static
-#include "hitomezashi.h"
-#include "optparse/optparse.h"
 #include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "hitomezashi.h"
+#include "hitomezashi_utils.h"
+#include "optparse.h"
 
 /** Initialise SDL, pass the information from hitomezashi_cli_handle_args() to
  * libhitomezashi, and save the resulting image. */
@@ -67,24 +70,6 @@ void hitomezashi_cli_help(void) {
   exit(Hitomezashi_Cli_Exit_Code_Success);
 }
 
-char *hitomezashi_cli_ascii_binary_str_to_ints(char *ascii_str, size_t n) {
-  char *res = malloc(n);
-  for (int i = 0; i < n; ++i) {
-    switch (ascii_str[i]) {
-    case '0':;
-      res[i] = 0;
-      break;
-    case '1':;
-      res[i] = 1;
-      break;
-    default:;
-      free(res);
-      return NULL;
-    }
-  }
-  return res;
-}
-
 void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
                                  int *y_pattern_len, char **x_pattern,
                                  char **y_pattern, int *gap, int *thickness,
@@ -112,8 +97,8 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *x_pattern_len = x_pattern_len_l;
-      *x_pattern = hitomezashi_cli_ascii_binary_str_to_ints(options.optarg,
-                                                            *x_pattern_len);
+      *x_pattern =
+          hitomezashi_ascii_binary_str_to_ints(options.optarg, *x_pattern_len);
       if (!*x_pattern) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Invalid x pattern; see -h");
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
@@ -128,8 +113,8 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
       }
       *y_pattern_len = y_pattern_len_l;
-      *y_pattern = hitomezashi_cli_ascii_binary_str_to_ints(options.optarg,
-                                                            *y_pattern_len);
+      *y_pattern =
+          hitomezashi_ascii_binary_str_to_ints(options.optarg, *y_pattern_len);
       if (!*y_pattern) {
         SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Invalid y pattern; see -h");
         exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);

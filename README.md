@@ -1,32 +1,53 @@
 # Hitomezashi
 
-Library and CLI app to generate hitomezashi patterns like the following:
+Library, CLI and web app to generate hitomezashi patterns. These are an example of visually complex and structured patterns arising from simple rules.
+
+Here is an example of such a pattern:
 
 <img src="https://raw.githubusercontent.com/untir-l/hitomezashi/main/sample.png" alt="sample hitomezashi pattern" width="500" height="500">
 
-Inspired by [Numberphile's video](https://www.youtube.com/watch?v=JbfhzlMk2eY) on hitomezashi stitch patterns.
+## What is the pattern?
 
-Written in C11 with SDL2. Code style: whatever clang-format outputs.
+Consider a series of dashed lines, with alternating dashes and spaces of equal length. Let some number of these dashed lines emanate from the X axis, and some from the Y axis.
 
-Licensed under GPLv2 (see `LICENSE` file for full text). This project's source code is copyright © 2022-present Arjun Satarkar, except code contributed by others who retain their copyright.
+Now, assign a binary number to each of the lines on each axis. If the number is 0, let the first part of the line that is touching the axis be a dash, and the second a space. If it is 1, offset the dashed line by one part so it begins with a space, followed by a dash.
 
-## Usage
+The result is a hitomezashi pattern.
+
+For video explanation and to see one drawn to paper, check out [the video that inspired this project](https://www.youtube.com/watch?v=JbfhzlMk2eY).
+
+Hitomezashi patterns originated in Japan as a form of stitching. Thinking about the patterns as stitching helps explain the presence of what we approximate as dashed lines.
+
+## Building and usage
 
 ### libhitomezashi
 
 This is in the `lib/` directory. For example usage, see the Hitomezashi CLI source (all the relevant code is in `main()`; most everything outside that is cumbersome argument parsing).
 
-Running `make` in the project root will build this as `libhitomezashi.a`.
+libhitomezashi can be compiled to WebAssembly for use on the web.
+
+To build, run `CC=gcc make libhitomezashi.a`.
 
 ### Hitomezashi CLI
 
-This is in the `cli/` directory. It is built by default when `make` is invoked in the project root. Run `./hitomezashi_cli -h` for usage info.
+This is in the `cli/` directory. Run `./hitomezashi_cli -h` for usage info.
 
-The output of the CLI app is a BMP image; you can convert it to something nicer like a PNG with FFmpeg or similar.
+The output of the CLI app is a BMP image as this is supported by default in SDL2; this will change eventually to output PNGs since BMP is an antiquated format. For now, you can convert using FFmpeg or similar.
 
-Additionally, the output is black and white - you can replace these colours using your tool of choice if desired.
+To build, run `CC=gcc make hitomezashi_cli`.
+
+### Hitomezashi Web App
+
+Try it: *link pending upload*.
+
+To build, first run `make clean` if you previously built as native code, then (with Emscripten SDK in your PATH) run `emmake make hitomezashi_web.html`.
+
+## Technical and copyright information
+
+Written in C11 with SDL2. Code style: `make format-code` will run `clang-format` with the correct parameters.
+
+Licensed under GPLv2 (see `LICENSE` file for full text). This project's source code is copyright © 2022-present Arjun Satarkar, except code contributed by others who retain their copyright.
 
 ## Todos/potential future additions
-- Make a web app version
 - Add support for output to PNG/other formats to the CLI app
 - Add support for choosing foreground and background colours

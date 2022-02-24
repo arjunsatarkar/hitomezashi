@@ -1,5 +1,5 @@
 #include "hitomezashi.h"
-#include "SDL.h"
+#include "SDL2/SDL.h"
 #include <assert.h>
 
 SDL_Color HITOMEZASHI_FG_COLOUR = {.r = 0, .g = 0, .b = 0};

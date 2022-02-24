@@ -1,4 +1,7 @@
 *.a
 *.o
+/*.html
+*.js
+*.wasm
 hitomezashi_cli
 **/docs

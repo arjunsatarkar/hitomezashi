@@ -37,8 +37,5 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
  * Hitomezashi_Cli_Exit_Code_Print_Help (2) on failure.
  */
 void hitomezashi_cli_help(void);
-/** Convert a string composed of ASCII 0 and 1 digits, eg\. "01010", to an array
- * of numeric 0s and 1s stored as char. */
-char *hitomezashi_cli_ascii_binary_str_to_ints(char *ascii_str, size_t n);
 
 #endif // HITOMEZASHI_CLI_H

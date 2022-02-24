@@ -3,14 +3,12 @@
 #ifndef HITOMEZASHI_HITOMEZASHI_H
 #define HITOMEZASHI_HITOMEZASHI_H
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 /** The state of a hitomezashi pattern.
  */
 struct Hitomezashi_State {
-  /** The length of the x_pattern. */
   int x_pattern_len;
-  /** The length of the y_pattern. */
   int y_pattern_len;
 
   /** Pattern used to draw the vertical lines conceptually originating from the
@@ -25,7 +23,6 @@ struct Hitomezashi_State {
   /** Gap between parallel lines. */
   int gap;
 
-  /** Thickness of each line. */
   int line_thickness;
 
   /** Width in pixels of the SDL_Surface needed to hold the pattern. This is
@@ -41,7 +38,6 @@ struct Hitomezashi_State {
 
 /** Result of hitomezashi_state_init(). */
 enum Hitomezashi_State_Init_Result {
-  /** The function completed successfully. */
   Hitomezashi_State_Init_Result_Success,
   /** The function failed as it encountered an error initialising the
      SDL_Surface in state. */
@@ -50,7 +46,6 @@ enum Hitomezashi_State_Init_Result {
 
 /** Result of hitomezashi_draw() */
 enum Hitomezashi_Draw_Result {
-  /** The function completed successfully. */
   Hitomezashi_Draw_Result_Success,
   /** The function failed as it encountered an error "locking" the surface to
      write to it. */
@@ -64,7 +59,7 @@ hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
                        int y_pattern_len, char *x_pattern, char *y_pattern,
                        int gap, int line_thickness);
 
-/** Draw the hitomezashi pattern to a Hitomezashi_State's surface. */
+/** Draw the hitomezashi pattern to state->surface. */
 enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state);
 
 #endif // HITOMEZASHI_HITOMEZASHI_H
