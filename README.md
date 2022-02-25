@@ -42,7 +42,7 @@ Try it: *link pending upload*.
 
 To build, first run `make clean` if you previously built to native code, then (with Emscripten SDK in your PATH) run `emmake make hitomezashi_web.html`.
 
-You will need to serve, from a web server: `hitomezashi_web.html`, `hitomezashi_web.js`, `hitomezashi_web.wasm` in order for it to work; the `file://` protocol may not cut it. Remember to follow the terms of the terms of the license if you host these publicly.
+You will need to serve, from a web server: `hitomezashi_web.html`, `hitomezashi_web.js`, `hitomezashi_web.wasm` in order for it to work; the `file://` protocol may not be sufficient.
 
 ## Technical and copyright information
 
