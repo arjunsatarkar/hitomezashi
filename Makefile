@@ -22,7 +22,7 @@ hitomezashi_cli.o: cli/hitomezashi_cli.c cli/hitomezashi_cli.h
 
 
 hitomezashi_web.html: web/hitomezashi_web_shell.html hitomezashi_web.o libhitomezashi.a
-	$(CC) $(LDFLAGS) $(LDLIBS) -O3 --shell-file ./web/hitomezashi_web_shell.html -o hitomezashi_web.html hitomezashi_web.o libhitomezashi.a
+	$(CC) $(LDFLAGS) $(LDLIBS) -O3 -s MINIFY_HTML=0 --shell-file ./web/hitomezashi_web_shell.html -o hitomezashi_web.html hitomezashi_web.o libhitomezashi.a
 hitomezashi_web.o: web/hitomezashi_web.c web/hitomezashi_web.h
 	$(CC) -c $(CFLAGS) -I./lib/ web/hitomezashi_web.c
 
