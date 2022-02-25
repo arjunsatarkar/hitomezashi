@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--This is code modified from https://github.com/emscripten-core/emscripten/blob/main/src/shell_minimal.html.-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,26 +23,26 @@
       form input {
         display: table-cell;
       }
-      p#infoLink {
+      p#seeReadme {
         text-align: center;
       }
-      p#infoLink a {
+      p#seeReadme a {
         margin-left: 1ex;
         margin-right: 1ex;
       }
     </style>
   </head>
   <body>
-	<p id="infoLink">See <a href="https://github.com/untir-l/hitomezashi/blob/main/README.md">the README</a> for information.</p>
-        <form name="hitomezashi parameters" autocomplete="off" method="get">
-                <p><label>x pattern: <input name="x_pattern"></label></p>
-                <p><label>y pattern: <input name="y_pattern"></label></p>
-                <p><label>gap: <input name="gap" type="number"></label></p>
-                <p><label>line thickness: <input name="line_thickness" type="number"></label></p>
-                <input type="submit" value="submit"></p>
-        </form>
-        <br>
-        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <p id="seeReadme">See <a href="https://github.com/untir-l/hitomezashi/blob/main/README.md">the README</a> for information.</p>
+    <form name="hitomezashi parameters" autocomplete="off" method="get">
+            <p><label>x pattern: <input name="x_pattern"></label></p>
+            <p><label>y pattern: <input name="y_pattern"></label></p>
+            <p><label>gap: <input name="gap" type="number"></label></p>
+            <p><label>line thickness: <input name="line_thickness" type="number"></label></p>
+            <p><input type="submit" value="submit"></p>
+    </form>
+    <br>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
     <script type='text/javascript'>
       var Module = {
         preRun: [],
