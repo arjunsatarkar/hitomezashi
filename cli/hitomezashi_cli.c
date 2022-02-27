@@ -2,7 +2,7 @@
 
 #include "hitomezashi_cli.h"
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 #define OPTPARSE_IMPLEMENTATION
 #define OPTPARSE_API static
 #include <limits.h>
@@ -25,9 +25,11 @@ int main(int argc, char **argv) {
   char *y_pattern;
   int gap;
   int thickness;
+  Uint32 fg_colour;
+  Uint32 bg_colour;
   hitomezashi_cli_handle_args(&out_file_path, &x_pattern_len, &y_pattern_len,
-                              &x_pattern, &y_pattern, &gap, &thickness, argc,
-                              argv);
+                              &x_pattern, &y_pattern, &gap, &thickness,
+                              &fg_colour, &bg_colour, argc, argv);
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "Failed to initialise SDL: %s",
@@ -37,7 +39,8 @@ int main(int argc, char **argv) {
 
   struct Hitomezashi_State state;
   if (hitomezashi_state_init(&state, x_pattern_len, y_pattern_len, x_pattern,
-                             y_pattern, gap, thickness) != 0) {
+                             y_pattern, gap, thickness, fg_colour,
+                             bg_colour) != 0) {
     return Hitomezashi_Cli_Exit_Code_Err_State_Init;
   }
 
@@ -64,6 +67,10 @@ void hitomezashi_cli_help(void) {
            "-y - specify the y pattern, as with -x\n"
            "-g - specify the gap between lines as an integer\n"
            "-t - specify the line thickness as an integer\n"
+           "-f - (optional) specify the foreground colour in RGB as a 32-bit "
+           "integer, eg. 0x000000"
+           "-b - (optional) specify the background colour in RGB as a 32-bit "
+           "integer, eg. 0xFFFFFF"
            "-h - print this help and exit") < 0) {
     exit(Hitomezashi_Cli_Exit_Code_Err_Print_Help);
   }
@@ -73,17 +80,20 @@ void hitomezashi_cli_help(void) {
 void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
                                  int *y_pattern_len, char **x_pattern,
                                  char **y_pattern, int *gap, int *thickness,
-                                 int argc, char **argv) {
+                                 Uint32 *fg_colour, Uint32 *bg_colour, int argc,
+                                 char **argv) {
   bool out_file_path_specified = false;
   bool x_pattern_specified = false;
   bool y_pattern_specified = false;
   bool gap_specified = false;
   bool thickness_specified = false;
+  *fg_colour = 0x000000;
+  *bg_colour = 0xffffff;
 
   struct optparse options;
   optparse_init(&options, argv);
   int option;
-  while ((option = optparse(&options, ":o:x:y:g:t:h")) != -1) {
+  while ((option = optparse(&options, ":o:x:y:g:t:f:b:h")) != -1) {
     switch (option) {
     case 'o':;
       *out_file_path = options.optarg;
@@ -143,6 +153,28 @@ void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
       }
       *thickness = thickness_l;
       thickness_specified = true;
+      break;
+    case 'f':;
+      long fg_colour_l = strtol(options.optarg, NULL, 0);
+      if (fg_colour_l < 0 || fg_colour_l > INT_MAX) {
+        SDL_LogCritical(
+            SDL_LOG_CATEGORY_ERROR,
+            "Value for foreground colour must be non-negative and less than %d",
+            INT_MAX);
+        exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
+      }
+      *fg_colour = fg_colour_l;
+      break;
+    case 'b':;
+      long bg_colour_l = strtol(options.optarg, NULL, 0);
+      if (bg_colour_l < 0 || bg_colour_l > INT_MAX) {
+        SDL_LogCritical(
+            SDL_LOG_CATEGORY_ERROR,
+            "Value for background colour must be non-negative and less than %d",
+            INT_MAX);
+        exit(Hitomezashi_Cli_Exit_Code_Err_Handle_Args);
+      }
+      *bg_colour = bg_colour_l;
       break;
     case 'h':;
       hitomezashi_cli_help();

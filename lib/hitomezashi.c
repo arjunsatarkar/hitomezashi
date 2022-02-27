@@ -8,7 +8,8 @@ SDL_Color HITOMEZASHI_BG_COLOUR = {.r = 255, .g = 255, .b = 255};
 enum Hitomezashi_State_Init_Result
 hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
                        int y_pattern_len, char *x_pattern, char *y_pattern,
-                       int gap, int line_thickness) {
+                       int gap, int line_thickness, Uint32 fg_colour,
+                       Uint32 bg_colour) {
   assert(x_pattern_len >= 0);
   assert(y_pattern_len >= 0);
   assert(gap >= 0);
@@ -22,6 +23,8 @@ hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
   state->line_thickness = line_thickness;
   state->output_width = x_pattern_len * gap;
   state->output_height = y_pattern_len * gap;
+  state->fg_colour = fg_colour;
+  state->bg_colour = bg_colour;
 
   state->surface = SDL_CreateRGBSurface(0, state->output_width,
                                         state->output_height, 32, 0, 0, 0, 0);
@@ -36,14 +39,7 @@ enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state) {
     return Hitomezashi_Draw_Result_Err_Lock_Surface;
   }
 
-  Uint32 bg_colour =
-      SDL_MapRGB(state->surface->format, HITOMEZASHI_BG_COLOUR.r,
-                 HITOMEZASHI_BG_COLOUR.g, HITOMEZASHI_BG_COLOUR.b);
-  Uint32 fg_colour =
-      SDL_MapRGB(state->surface->format, HITOMEZASHI_FG_COLOUR.r,
-                 HITOMEZASHI_FG_COLOUR.g, HITOMEZASHI_FG_COLOUR.b);
-
-  SDL_FillRect(state->surface, NULL, bg_colour);
+  SDL_FillRect(state->surface, NULL, state->bg_colour);
 
   SDL_Rect rect;
   // Draw y pattern (horizontal) lines
@@ -54,7 +50,7 @@ enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state) {
         rect.y = i * state->gap;
         rect.w = state->gap;
         rect.h = state->line_thickness;
-        SDL_FillRect(state->surface, &rect, fg_colour);
+        SDL_FillRect(state->surface, &rect, state->fg_colour);
       }
     }
   }
@@ -66,7 +62,7 @@ enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state) {
         rect.y = j * state->gap;
         rect.w = state->line_thickness;
         rect.h = state->gap;
-        SDL_FillRect(state->surface, &rect, fg_colour);
+        SDL_FillRect(state->surface, &rect, state->fg_colour);
       }
     }
   }
@@ -78,7 +74,7 @@ enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state) {
       rect.y = y;
       rect.w = state->line_thickness;
       rect.h = state->line_thickness;
-      SDL_FillRect(state->surface, &rect, fg_colour);
+      SDL_FillRect(state->surface, &rect, state->fg_colour);
     }
   }
 

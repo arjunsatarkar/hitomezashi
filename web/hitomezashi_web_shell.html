@@ -39,6 +39,8 @@
             <p><label>y pattern: <input name="y_pattern"></label></p>
             <p><label>gap: <input name="gap" type="number"></label></p>
             <p><label>line thickness: <input name="line_thickness" type="number"></label></p>
+            <p><label>foreground colour: <input name="fg_colour" type="color"></label></p>
+            <p><label>background colour: <input name="bg_colour" type="color"></label></p>
             <p><input type="submit" value="submit"></p>
     </form>
     <br>
@@ -63,6 +65,8 @@
       document.querySelector("input[name=\"y_pattern\"]").value = params.get("y_pattern");
       document.querySelector("input[name=\"gap\"]").value = params.get("gap");
       document.querySelector("input[name=\"line_thickness\"]").value = params.get("line_thickness");
+      document.querySelector("input[name=\"fg_colour\"]").value = params.get("fg_colour");
+      document.querySelector("input[name=\"bg_colour\"]").value = params.get("bg_colour");
     </script>
     {{{ SCRIPT }}}
   </body>

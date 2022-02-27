@@ -5,3 +5,4 @@
 *.wasm
 hitomezashi_cli
 **/docs
+.idea/

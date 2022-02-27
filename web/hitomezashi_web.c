@@ -32,6 +32,9 @@ int EMSCRIPTEN_KEEPALIVE main(void) {
   int gap = strtol(strtok(NULL, "\n"), NULL, 0);
   int line_thickness = strtol(strtok(NULL, "\n"), NULL, 0);
 
+  Uint32 fg_colour = strtol(strtok(NULL, "\n"), NULL, 0);
+  Uint32 bg_colour = strtol(strtok(NULL, "\n"), NULL, 0);
+
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     return Hitomezashi_Web_Result_Err_Sdl_Init;
   }
@@ -42,7 +45,8 @@ int EMSCRIPTEN_KEEPALIVE main(void) {
 
   struct Hitomezashi_State state;
   if (hitomezashi_state_init(&state, x_pattern_len, y_pattern_len, x_pattern,
-                             y_pattern, gap, line_thickness) != 0) {
+                             y_pattern, gap, line_thickness, fg_colour,
+                             bg_colour) != 0) {
     return Hitomezashi_Web_Result_Err_State_Init;
   }
 
@@ -81,6 +85,16 @@ EM_JS(char *, hitomezashi_web_get_args, (void), {
   const y_pattern = search_params.get("y_pattern");
   const gap = search_params.get("gap");
   const line_thickness = search_params.get("line_thickness");
+  let fg_colour = search_params.get("fg_colour");
+  let bg_colour = search_params.get("bg_colour");
+  if (!fg_colour) {
+    fg_colour = "#000000";
+  }
+  if (!bg_colour) {
+    bg_colour = "#FFFFFF";
+  }
+  fg_colour = "0x" + fg_colour.slice(1);
+  bg_colour = "0x" + bg_colour.slice(1);
 
   if (!(x_pattern && y_pattern && gap && line_thickness)) {
     result_js = "i";
@@ -91,7 +105,7 @@ EM_JS(char *, hitomezashi_web_get_args, (void), {
       result_js = "i";
     } else {
       result_js = x_pattern + "\n" + y_pattern + "\n" + gap + "\n" +
-                  line_thickness + "\n";
+                  line_thickness + "\n" + fg_colour + "\n" + bg_colour + "\n";
     }
   }
 

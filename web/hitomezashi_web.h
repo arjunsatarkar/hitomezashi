@@ -2,6 +2,7 @@
 #ifndef HITOMEZASHI_WEB_H
 #define HITOMEZASHI_WEB_H
 
+#include "SDL2/SDL.h"
 #include "emscripten.h"
 
 enum Hitomezashi_Web_Result {
@@ -12,7 +13,8 @@ enum Hitomezashi_Web_Result {
 };
 
 int hitomezashi_web(int x_pattern_len, int y_pattern_len, char *x_pattern,
-                    char *y_pattern, int gap, int line_thickness);
+                    char *y_pattern, int gap, int line_thickness,
+                    Uint32 fg_colour, Uint32 bg_colour);
 
 /** Parse the URL query string and return the parameters thereof.
  *

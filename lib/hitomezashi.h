@@ -25,6 +25,9 @@ struct Hitomezashi_State {
 
   int line_thickness;
 
+  Uint32 fg_colour;
+  Uint32 bg_colour;
+
   /** Width in pixels of the SDL_Surface needed to hold the pattern. This is
    * calculated by hitomezashi_state_init(). */
   int output_width;
@@ -32,11 +35,10 @@ struct Hitomezashi_State {
    * calculated by hitomezashi_state_init(). */
   int output_height;
 
-  /** SDL_Surface the pattern is drawn to by hitomezashi_draw(). */
+  /** Surface the pattern is drawn to by hitomezashi_draw(). */
   SDL_Surface *surface;
 };
 
-/** Result of hitomezashi_state_init(). */
 enum Hitomezashi_State_Init_Result {
   Hitomezashi_State_Init_Result_Success,
   /** The function failed as it encountered an error initialising the
@@ -44,7 +46,6 @@ enum Hitomezashi_State_Init_Result {
   Hitomezashi_State_Init_Result_Err_Create_Surface,
 };
 
-/** Result of hitomezashi_draw() */
 enum Hitomezashi_Draw_Result {
   Hitomezashi_Draw_Result_Success,
   /** The function failed as it encountered an error "locking" the surface to
@@ -57,7 +58,8 @@ enum Hitomezashi_Draw_Result {
 enum Hitomezashi_State_Init_Result
 hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
                        int y_pattern_len, char *x_pattern, char *y_pattern,
-                       int gap, int line_thickness);
+                       int gap, int line_thickness, Uint32 fg_colour,
+                       Uint32 bg_colour);
 
 /** Draw the hitomezashi pattern to state->surface. */
 enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state);

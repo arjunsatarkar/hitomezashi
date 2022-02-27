@@ -2,7 +2,7 @@
 
 Library, CLI and web app to generate hitomezashi patterns. These are an example of visually complex and structured patterns arising from simple rules.
 
-Here is an example of such a pattern:
+Here is an example of such a pattern (different colours are also supported):
 
 <img src="https://raw.githubusercontent.com/untir-l/hitomezashi/main/sample.png" alt="sample hitomezashi pattern" width="500" height="500">
 
@@ -32,6 +32,8 @@ To build, run `CC=gcc make libhitomezashi.a`.
 
 This is in the `cli/` directory. Run `./hitomezashi_cli -h` for usage info.
 
+Colours are supported!
+
 The output of the CLI app is a BMP image as this is supported by default in SDL2; this will change eventually to output PNGs since BMP is an antiquated format. For now, you can convert using FFmpeg or similar.
 
 To build, run `CC=gcc make hitomezashi_cli`.
@@ -44,6 +46,8 @@ To build, first run `make clean` if you previously built to native code, then (w
 
 You will need to serve, from a web server: `hitomezashi_web.html`, `hitomezashi_web.js`, `hitomezashi_web.wasm` in order for it to work; the `file://` protocol may not be sufficient.
 
+The UI is self-explanatory.
+
 ## Technical and copyright information
 
 Written in C11 with SDL2. Code style: `make format-code` will run `clang-format` with the correct parameters.
@@ -52,4 +56,3 @@ Licensed under GPLv2 (see `LICENSE` file for full text). This project's source c
 
 ## Todos/potential future additions
 - Add support for output to PNG/other formats to the CLI app
-- Add support for choosing foreground and background colours

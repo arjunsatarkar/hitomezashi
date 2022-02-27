@@ -2,6 +2,7 @@
 #ifndef HITOMEZASHI_CLI_H
 #define HITOMEZASHI_CLI_H
 
+#include "SDL2/SDL.h"
 #include <stddef.h>
 
 /** Exit codes for main().
@@ -31,7 +32,8 @@ enum Hitomezashi_Cli_Exit_Code {
 void hitomezashi_cli_handle_args(char **out_file_path, int *x_pattern_len,
                                  int *y_pattern_len, char **x_pattern,
                                  char **y_pattern, int *gap, int *thickness,
-                                 int argc, char **argv);
+                                 Uint32 *fg_colour, Uint32 *bg_colour, int argc,
+                                 char **argv);
 /** Print the help text and exit.
  * Exits with Hitomezashi_Cli_Exit_Code_Success (0) on success, and
  * Hitomezashi_Cli_Exit_Code_Print_Help (2) on failure.
