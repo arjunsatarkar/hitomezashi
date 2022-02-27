@@ -67,9 +67,9 @@ void hitomezashi_cli_help(void) {
            "-y - specify the y pattern, as with -x\n"
            "-g - specify the gap between lines as an integer\n"
            "-t - specify the line thickness as an integer\n"
-           "-f - (optional) specify the foreground colour in RGB as a 32-bit "
+           "-f - (optional) specify the foreground colour in RGB as an "
            "integer, eg. 0x000000\n"
-           "-b - (optional) specify the background colour in RGB as a 32-bit "
+           "-b - (optional) specify the background colour in RGB as an "
            "integer, eg. 0xFFFFFF\n"
            "-h - print this help and exit") < 0) {
     exit(Hitomezashi_Cli_Exit_Code_Err_Print_Help);
