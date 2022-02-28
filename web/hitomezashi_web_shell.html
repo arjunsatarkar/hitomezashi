@@ -6,34 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hitomezashi</title>
     <style>
-      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
-      div.emscripten { text-align: center; }
-      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      canvas.emscripten { border: 0px none; background-color: black; }
+      canvas {
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        border: 0px none;
+        background-color: black;
+      }
       form {
         display: table;
         margin: auto;
       }
-      form p {
+      form > p {
         display: table-row;
       }
-      form label {
+      form > p > label {
         display: table-cell;
       }
-      form input {
+      form > p > label > input {
         display: table-cell;
       }
-      p#seeReadme {
+      button#downloadCanvas {
+        display: block;
+        margin: 0 auto;
+      }
+      p#info {
         text-align: center;
       }
-      p#seeReadme a {
+      p#info > a {
         margin-left: 1ex;
         margin-right: 1ex;
       }
     </style>
   </head>
   <body>
-    <p id="seeReadme">See <a href="https://github.com/untir-l/hitomezashi/blob/main/README.md">the README</a> for information.</p>
+    <p id="info">See <a href="https://github.com/untir-l/hitomezashi/blob/main/README.md">the README</a> for information.</p>
     <form name="hitomezashi parameters" autocomplete="off" method="get">
             <p><label>x pattern: <input name="x_pattern"></label></p>
             <p><label>y pattern: <input name="y_pattern"></label></p>
@@ -45,21 +53,22 @@
     </form>
     <br>
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <br>
+    <button id="downloadCanvas">download as image</button>
     <script type='text/javascript'>
+      // Make sure the WebGL context preserves the drawing buffer so the download button works
+      // Based on https://stackoverflow.com/a/43979935
+      const canvas = document.querySelector("#canvas");
+      canvas.getContext("webgl", {preserveDrawingBuffer: true});
+
       var Module = {
-        preRun: [],
-        postRun: [],
         canvas: (function() {
-          var canvas = document.getElementById('canvas');
-
-          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
-          // application robust, you may want to override this behavior before shipping!
-          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
           canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
-
           return canvas;
         })(),
       };
+
+      // Set the input fields based on the query string so they appear sticky
       const params = new URLSearchParams(window.location.search);
       document.querySelector("input[name=\"x_pattern\"]").value = params.get("x_pattern");
       document.querySelector("input[name=\"y_pattern\"]").value = params.get("y_pattern");
@@ -67,6 +76,14 @@
       document.querySelector("input[name=\"line_thickness\"]").value = params.get("line_thickness");
       document.querySelector("input[name=\"fg_colour\"]").value = params.get("fg_colour");
       document.querySelector("input[name=\"bg_colour\"]").value = params.get("bg_colour");
+
+     function downloadCanvas() {
+        let downloadLink = document.createElement("a");
+        downloadLink.setAttribute("download", "hitomezashi");
+        downloadLink.setAttribute("href", canvas.toDataURL());
+        downloadLink.click();
+     }
+     document.querySelector("#downloadCanvas").addEventListener("click", downloadCanvas);
     </script>
     {{{ SCRIPT }}}
   </body>
