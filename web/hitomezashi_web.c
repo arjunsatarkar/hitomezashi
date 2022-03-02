@@ -62,6 +62,10 @@ int EMSCRIPTEN_KEEPALIVE main(void) {
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_RenderPresent(renderer);
 
+  // Since this is a short-lived application which is only run on page load,
+  // we do not need to delay the exit of main by freeing memory - it will be
+  // reclaimed by the browser automatically.
+
   return Hitomezashi_Web_Result_Success;
 }
 
