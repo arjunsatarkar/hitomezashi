@@ -40,24 +40,25 @@ void EMSCRIPTEN_KEEPALIVE main_loop(void) {
   const Uint32 fg_colour = hitomezashi_web_get_fg_colour();
   const Uint32 bg_colour = hitomezashi_web_get_bg_colour();
 
-  // If any of these are 0, input was invalid
-  if (!(x_pattern_len && y_pattern_len && gap && line_thickness))
-    return;
+  // If input was valid (if any of these are 0 it was invalid)
+  if (x_pattern_len && y_pattern_len && gap && line_thickness) {
+    struct Hitomezashi_State state;
+    hitomezashi_state_init(&state, x_pattern_len, y_pattern_len, x_pattern,
+                           y_pattern, gap, line_thickness, fg_colour,
+                           bg_colour);
+    SDL_SetWindowSize(window, state.output_width, state.output_height);
+    hitomezashi_draw(&state);
 
-  struct Hitomezashi_State state;
-  hitomezashi_state_init(&state, x_pattern_len, y_pattern_len, x_pattern,
-                         y_pattern, gap, line_thickness, fg_colour, bg_colour);
-  SDL_SetWindowSize(window, state.output_width, state.output_height);
-  hitomezashi_draw(&state);
+    SDL_BlitSurface(state.surface, NULL, SDL_GetWindowSurface(window), NULL);
+    SDL_UpdateWindowSurface(window);
 
-  SDL_BlitSurface(state.surface, NULL, SDL_GetWindowSurface(window), NULL);
-  SDL_UpdateWindowSurface(window);
+    SDL_FreeSurface(state.surface);
+  }
 
   free((char *)x_pattern_raw);
   free((char *)y_pattern_raw);
   free((char *)x_pattern);
   free((char *)y_pattern);
-  SDL_FreeSurface(state.surface);
 }
 
 EM_JS(char *, hitomezashi_web_get_x_pattern, (void), {
