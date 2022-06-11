@@ -42,6 +42,8 @@ To build, first run `make clean` if you previously built to native code, then (w
 
 You will need to serve, from a web server: `hitomezashi_web.html`, `hitomezashi_web.js`, `hitomezashi_web.wasm` in order for it to work; the `file://` protocol may not be sufficient.
 
+<img src="https://github.com/untir-l/hitomezashi/blob/main/screenshot_web.png?raw=true" width="500">
+
 ## Technical and copyright information
 
 Written in C11 with SDL2. Code style: `make format-code` will run `clang-format` with the correct parameters.

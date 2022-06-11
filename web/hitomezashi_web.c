@@ -3,6 +3,7 @@
 #include "emscripten.h"
 #include "hitomezashi.h"
 #include "hitomezashi_utils.h"
+#include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +22,7 @@ int EMSCRIPTEN_KEEPALIVE main(void) {
 
   emscripten_set_main_loop(main_loop, -1, true);
 
-  return EXIT_SUCCESS;
+  assert(0); // This should never be reached
 }
 
 void EMSCRIPTEN_KEEPALIVE main_loop(void) {

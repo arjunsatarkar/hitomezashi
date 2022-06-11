@@ -58,8 +58,10 @@
     <p><label>foreground colour: <input name="fg_colour" type="color"></label></p>
     <p><label>background colour: <input name="bg_colour" type="color"></label></p>
   </form>
-
+  <br>
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+  <br>
+  <button id="downloadCanvas">download as image</button>
   <script type='text/javascript'>
     var Module = {
       canvas: (function () {
