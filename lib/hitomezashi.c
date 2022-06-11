@@ -7,9 +7,9 @@ SDL_Color HITOMEZASHI_BG_COLOUR = {.r = 255, .g = 255, .b = 255};
 
 enum Hitomezashi_State_Init_Result
 hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
-                       int y_pattern_len, char *x_pattern, char *y_pattern,
-                       int gap, int line_thickness, Uint32 fg_colour,
-                       Uint32 bg_colour) {
+                       int y_pattern_len, const char *x_pattern,
+                       const char *y_pattern, int gap, int line_thickness,
+                       Uint32 fg_colour, Uint32 bg_colour) {
   assert(x_pattern_len >= 0);
   assert(y_pattern_len >= 0);
   assert(gap >= 0);

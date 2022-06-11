@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-char *hitomezashi_ascii_binary_str_to_ints(char *ascii_str, size_t len) {
+char *hitomezashi_ascii_binary_str_to_ints(const char *ascii_str, size_t len) {
   char *res = malloc(len);
   for (int i = 0; i < len; ++i) {
     switch (ascii_str[i]) {

@@ -14,11 +14,11 @@ struct Hitomezashi_State {
   /** Pattern used to draw the vertical lines conceptually originating from the
    * x axis. This is an array of 0s and 1s.
    */
-  char *x_pattern;
+  const char *x_pattern;
   /** Pattern used to draw the horizontal lines conceptually originating from
    * the y axis. This is an array of 0s and 1s.
    */
-  char *y_pattern;
+  const char *y_pattern;
 
   /** Gap between parallel lines. */
   int gap;
@@ -57,9 +57,9 @@ enum Hitomezashi_Draw_Result {
  * hitomezashi_draw(). */
 enum Hitomezashi_State_Init_Result
 hitomezashi_state_init(struct Hitomezashi_State *state, int x_pattern_len,
-                       int y_pattern_len, char *x_pattern, char *y_pattern,
-                       int gap, int line_thickness, Uint32 fg_colour,
-                       Uint32 bg_colour);
+                       int y_pattern_len, const char *x_pattern,
+                       const char *y_pattern, int gap, int line_thickness,
+                       Uint32 fg_colour, Uint32 bg_colour);
 
 /** Draw the hitomezashi pattern to state->surface. */
 enum Hitomezashi_Draw_Result hitomezashi_draw(struct Hitomezashi_State *state);

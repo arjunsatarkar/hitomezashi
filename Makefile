@@ -30,4 +30,4 @@ format-code:
 	clang-format -i --verbose **/*.c **/*.h
 
 clean:
-	rm -f *.a *.o *.js *.wasm *.html hitomezashi_cli
+	rm -vf *.a *.o *.js *.wasm *.html hitomezashi_cli

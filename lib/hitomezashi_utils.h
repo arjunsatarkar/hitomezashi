@@ -12,6 +12,6 @@
  * be freed**.
  * @param len Length of ascii_str, not including any terminating null bytes.
  */
-char *hitomezashi_ascii_binary_str_to_ints(char *ascii_str, size_t len);
+char *hitomezashi_ascii_binary_str_to_ints(const char *ascii_str, size_t len);
 
 #endif // HITOMEZASHI_UTILS_H

@@ -32,21 +32,15 @@ To build, run `CC=gcc make libhitomezashi.a`.
 
 This is in the `cli/` directory. Run `./hitomezashi_cli -h` for usage info.
 
-Colours are supported!
-
-The output of the CLI app is a BMP image as this is supported by default in SDL2; this will change eventually to output PNGs since BMP is an antiquated format. For now, you can convert using FFmpeg or similar.
-
 To build, run `CC=gcc make hitomezashi_cli`.
 
 ### Hitomezashi Web App
 
-Try it: *link pending upload*.
+Try it: *link pending*.
 
 To build, first run `make clean` if you previously built to native code, then (with Emscripten SDK in your PATH) run `emmake make hitomezashi_web.html`.
 
 You will need to serve, from a web server: `hitomezashi_web.html`, `hitomezashi_web.js`, `hitomezashi_web.wasm` in order for it to work; the `file://` protocol may not be sufficient.
-
-The UI is self-explanatory.
 
 ## Technical and copyright information
 
