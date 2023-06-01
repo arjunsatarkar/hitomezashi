@@ -1,3 +1,0 @@
-[submodule "cli/optparse"]
-	path = cli/optparse
-	url = https://github.com/skeeto/optparse
