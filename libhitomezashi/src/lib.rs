@@ -1,5 +1,5 @@
 mod pixel_buffer;
-pub use bitvec::vec::BitVec;
+use bitvec::prelude::*;
 use pixel_buffer::PixelBuffer;
 
 pub fn get_hitomezashi_pattern(
@@ -52,12 +52,10 @@ mod tests {
 
     #[test]
     fn test() {
-        let mut x_pattern = BitVec::new();
-        x_pattern.resize(40, false);
-        x_pattern.set(1, true);
-        let mut y_pattern = BitVec::new();
-        y_pattern.resize(40, false);
-        y_pattern.set(1, true);
-        println!("{}", get_hitomezashi_pattern(x_pattern, y_pattern, 3, 1));
+        let x_pattern = bitvec![1, 1, 0, 1, 1, 1];
+        let y_pattern = bitvec![0, 1, 1, 0, 0, 0];
+        let result = format!("{}", get_hitomezashi_pattern(x_pattern, y_pattern, 3, 1));
+        println!("{}", result);
+        assert!(result == "███   ███   ███   \n      █           \n      █           \n█  ████  ████  ███\n█  █     █  █  █  \n█  █     █  █  █  \n   ████  ████  ███\n      █           \n      █           \n████  ████  ████  \n█  █     █  █  █  \n█  █     █  █  █  \n████  ████  ████  \n      █           \n      █           \n████  ████  ████  \n█  █     █  █  █  \n█  █     █  █  █  \n")
     }
 }

@@ -4,7 +4,7 @@ use std::ops::{Index, IndexMut};
 
 /// 2D buffer of monochrome (white/black i.e. true/false) pixels
 pub struct PixelBuffer {
-    buffer: BitVec,
+    pub buffer: BitVec,
     pub width: usize,
     pub height: usize,
 }
@@ -47,7 +47,7 @@ impl fmt::Display for PixelBuffer {
         let mut result = String::new();
         for y in 0..self.height {
             for x in 0..self.width {
-                result.push(if self[x][y] { '1' } else { '0' })
+                result.push(if self[x][y] { '█' } else { ' ' })
             }
             result.push('\n')
         }
@@ -81,13 +81,13 @@ mod tests {
         let mut pixel_buffer = PixelBuffer::new(3, 3);
         pixel_buffer[1].set(1, true);
         let result = format!("{}", pixel_buffer);
-        assert!(result == "000\n010\n000\n");
+        assert!(result == "   \n █ \n   \n");
     }
     #[test]
     fn rect() {
         let mut pixel_buffer = PixelBuffer::new(5, 3);
         pixel_buffer.fill_rect(1, 0, 2, 2);
         let result = format!("{}", pixel_buffer);
-        assert!(result == "01100\n01100\n00000\n");
+        assert!(result == " ██  \n ██  \n     \n");
     }
 }
