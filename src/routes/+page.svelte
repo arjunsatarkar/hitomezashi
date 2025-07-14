@@ -68,6 +68,11 @@
         url.searchParams.set("y", serializePattern(hitomezashiState.pattern.y));
         url.searchParams.set("s", hitomezashiState.spacing.toString());
 
+        /*  Use SvelteKit replaceState, not navigator.replaceState, because
+            it gives us warnings otherwise. The tick() is necessary for
+            something or other to be initialized so this call works.
+            https://github.com/sveltejs/kit/issues/11466
+        */
         tick().then(() => replaceState(url, page.state));
     });
 </script>
@@ -102,6 +107,16 @@
                 value="copy link"
                 onclick={() => {
                     navigator.clipboard.writeText(window.location.href);
+                }}
+            />
+            <input
+                type="button"
+                value="swap x/y"
+                onclick={() => {
+                    [hitomezashiState.pattern.x, hitomezashiState.pattern.y] = [
+                        hitomezashiState.pattern.y,
+                        hitomezashiState.pattern.x,
+                    ];
                 }}
             />
             <input
