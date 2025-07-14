@@ -5,7 +5,6 @@
 
 {@render children()}
 
-<hr>
 <footer>
   <small>
     &copy; 2025-present <a href="https://arjunsatarkar.net">Arjun Satarkar.</a

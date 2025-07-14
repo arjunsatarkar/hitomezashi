@@ -37,7 +37,7 @@
         const [lengthStr, patternB64] = patternStr.split(";");
         const length = +lengthStr;
         return [...atob(patternB64)]
-            .flatMap((c) => [...(c.charCodeAt(0)).toString(2).padStart(8, "0")])
+            .flatMap((c) => [...c.charCodeAt(0).toString(2).padStart(8, "0")])
             .map((v) => (+v ? true : false))
             .slice(0, length);
     };
@@ -169,6 +169,8 @@
         />
     </div>
 </div>
+
+<hr />
 
 <style>
     div.outerContainer {
