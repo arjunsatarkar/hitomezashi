@@ -36,11 +36,8 @@
     const deserializePattern = (patternStr: string): Pattern => {
         const [lengthStr, patternB64] = patternStr.split(";");
         const length = +lengthStr;
-        const bytes = Math.ceil(length / 8);
-        const arr = new Uint8Array(bytes);
-        arr.set([...atob(patternB64)].map((c) => c.charCodeAt(0)));
-
-        return [...arr]
+        return [...atob(patternB64)]
+            .map((c) => c.charCodeAt(0))
             .flatMap((byte) => [...byte.toString(2).padStart(8, "0")])
             .map((v) => (+v ? true : false))
             .slice(0, length);
