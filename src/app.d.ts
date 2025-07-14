@@ -8,6 +8,7 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	declare const __REPO_URL__: string;
 }
 
 export {};

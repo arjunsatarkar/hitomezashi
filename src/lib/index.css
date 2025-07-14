@@ -1,4 +1,21 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
+}
+
+hr {
+    width: 90%;
+}
+
+footer {
+    text-align: center;
+}
+
+a:visited {
+    color: LinkText;
+}
+
+a:active {
+    color: ActiveText;
 }
