@@ -1,8 +1,10 @@
 <script lang="ts">
+    import type { Pattern } from "$lib";
+
     let {
         pattern = $bindable(),
         axisName,
-    }: { pattern: boolean[]; axisName: "x" | "y" } = $props();
+    }: { pattern: Pattern; axisName: "x" | "y" } = $props();
 </script>
 
 <fieldset>
@@ -10,6 +12,7 @@
     {#each pattern as _, i}
         <input type="checkbox" bind:checked={pattern[i]} />
     {/each}
+    ({pattern.length})
     <div class="addRemoveButtons">
         <button onclick={() => pattern.pop()}>-</button>
         <button onclick={() => pattern.push(false)}>+</button>

@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { Vec2 } from "$lib";
+    import type { XYPattern } from "$lib";
 
     let {
         pattern,
         spacing,
     }: {
-        pattern: Vec2<boolean[]>;
+        pattern: XYPattern;
         spacing: number;
     } = $props();
 
