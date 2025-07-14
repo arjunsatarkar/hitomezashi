@@ -21,13 +21,13 @@
 
     const serializePattern = (pattern: Pattern): string => {
         const bytes = Math.ceil(pattern.length / 8);
-        const arr = new Uint8Array(bytes);
         const binstring = pattern
             .map((v) => (v ? "1" : "0"))
             .join("")
             .padEnd(bytes * 8, "0");
+        const arr: number[] = [];
         for (let i = 0; i < pattern.length; i += 8) {
-            arr.set([parseInt(binstring.slice(i, i + 8), 2)], i / 8);
+            arr.push(parseInt(binstring.slice(i, i + 8), 2));
         }
 
         return pattern.length + ";" + btoa(String.fromCharCode(...arr));
