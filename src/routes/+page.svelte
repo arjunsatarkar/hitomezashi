@@ -73,6 +73,10 @@
     });
 </script>
 
+<svelte:head>
+    <title>Hitomezashi</title>
+</svelte:head>
+
 <div class="outerContainer">
     <div class="inputContainer">
         <div class="mainInputContainer">
