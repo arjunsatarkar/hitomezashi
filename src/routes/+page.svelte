@@ -7,13 +7,16 @@
     import { page } from "$app/state";
     import { replaceState } from "$app/navigation";
 
-    const INITIAL_STATE: { pattern: XYPattern; spacing: number } = {
+    const RESET_STATE: { pattern: XYPattern; spacing: number } = {
         pattern: {
             x: Array(5).fill(false),
-            y: [false, true, false, true, false],
+            y: Array(5).fill(false),
         },
         spacing: 5,
     };
+
+    const INITIAL_STATE = structuredClone(RESET_STATE);
+    INITIAL_STATE.pattern.y = [false, true, false, true, false];
 
     let hitomezashiState = $state(structuredClone(INITIAL_STATE));
     let oldState: typeof hitomezashiState | null = $state(null);
@@ -75,7 +78,10 @@
 
 <svelte:head>
     <title>Hitomezashi</title>
-    <meta name="description" content="Create hitomezashi patterns, download as SVG, and share links.">
+    <meta
+        name="description"
+        content="Create hitomezashi patterns, download as SVG, and share links."
+    />
 </svelte:head>
 
 <div class="outerContainer">
@@ -126,7 +132,7 @@
                 value="reset"
                 onclick={() => {
                     oldState = hitomezashiState;
-                    hitomezashiState = structuredClone(INITIAL_STATE);
+                    hitomezashiState = structuredClone(RESET_STATE);
                 }}
             />
             <input
