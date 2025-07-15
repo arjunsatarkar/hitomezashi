@@ -75,6 +75,7 @@
 
 <svelte:head>
     <title>Hitomezashi</title>
+    <meta name="description" content="Create hitomezashi patterns, download as SVG, and share links.">
 </svelte:head>
 
 <div class="outerContainer">
