@@ -3,8 +3,8 @@
     import PatternInput from "./PatternInput.svelte";
     import type { Pattern, XYPattern } from "$lib";
 
-    import { onMount, tick } from "svelte";
     import { browser } from "$app/environment";
+    import { onMount } from "svelte";
 
     const RESET_STATE: { pattern: XYPattern; spacing: number } = {
         pattern: {
