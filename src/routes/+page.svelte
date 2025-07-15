@@ -85,6 +85,7 @@
         name="description"
         content="Create hitomezashi patterns, download as SVG, and share links."
     />
+    <link rel="canonical" href={__APP_HOME__} />
 </svelte:head>
 
 <div class="outerContainer">

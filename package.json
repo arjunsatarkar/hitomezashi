@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"license": "MIT",
+	"homepage": "https://hitomezashi.arjunsatarkar.net/",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/arjunsatarkar/hitomezashi.git"
