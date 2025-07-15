@@ -4,8 +4,7 @@
     import type { Pattern, XYPattern } from "$lib";
 
     import { onMount, tick } from "svelte";
-    import { page } from "$app/state";
-    import { replaceState } from "$app/navigation";
+    import { browser } from "$app/environment";
 
     const RESET_STATE: { pattern: XYPattern; spacing: number } = {
         pattern: {
@@ -20,6 +19,24 @@
 
     let hitomezashiState = $state(structuredClone(INITIAL_STATE));
     let oldState: typeof hitomezashiState | null = $state(null);
+    let shareUrl: URL | undefined = $derived.by(() => {
+        if (browser) {
+            const result = new URL(
+                window.location.origin + window.location.pathname,
+            );
+            result.searchParams.set(
+                "x",
+                serializePattern(hitomezashiState.pattern.x),
+            );
+            result.searchParams.set(
+                "y",
+                serializePattern(hitomezashiState.pattern.y),
+            );
+            result.searchParams.set("s", hitomezashiState.spacing.toString());
+            return result;
+        }
+        return undefined;
+    });
     let hitomezashiComponent: Hitomezashi;
 
     const serializePattern = (pattern: Pattern): string => {
@@ -59,20 +76,6 @@
         if (spacingParam) {
             hitomezashiState.spacing = +spacingParam;
         }
-    });
-
-    $effect(() => {
-        const url = new URL(location.origin + location.pathname);
-        url.searchParams.set("x", serializePattern(hitomezashiState.pattern.x));
-        url.searchParams.set("y", serializePattern(hitomezashiState.pattern.y));
-        url.searchParams.set("s", hitomezashiState.spacing.toString());
-
-        /*  Use SvelteKit replaceState, not navigator.replaceState, because
-            it gives us warnings otherwise. The tick() is necessary for
-            something or other to be initialized so this call works.
-            https://github.com/sveltejs/kit/issues/11466
-        */
-        tick().then(() => replaceState(url, page.state));
     });
 </script>
 
@@ -114,7 +117,7 @@
                 type="button"
                 value="copy link"
                 onclick={() => {
-                    navigator.clipboard.writeText(window.location.href);
+                    navigator.clipboard.writeText(shareUrl!.href);
                 }}
             />
             <input
