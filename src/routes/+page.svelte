@@ -78,6 +78,7 @@
 </svelte:head>
 
 <div class="outerContainer">
+    <noscript>JavaScript is required to use this site.</noscript>
     <div class="inputContainer">
         <div class="mainInputContainer">
             <div class="topInputContainer">
